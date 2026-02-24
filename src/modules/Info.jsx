@@ -10,7 +10,7 @@ export default function Info() {
           {/* Left Column - Profile Picture */}
           <Grid item xs={12} md={4} sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
             <Avatar
-              src="https://avatars.githubusercontent.com/u/12345678?v=4"
+              src="../assets/profile.jpg"
               sx={{ width: 180, height: 180, mb: 2, border: "3px solid rgba(12, 111, 209, 0.5)" }}
             />
           </Grid>

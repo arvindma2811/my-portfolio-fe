@@ -22,9 +22,9 @@ export default function Register() {
     e.preventDefault();
 
     try {
-      await API.post("/auth/register", { name, email, password });
+      await API.post("/api/auth/register", { name, email, password });
       navigate("/login");
-    } catch {
+    } catch (error) {
       alert("Error registering");
     }
   };

@@ -23,7 +23,7 @@ import SaveIcon from "@mui/icons-material/Save";
 export default function Users() {
   const [users, setUsers] = useState([]);
   const [editingId, setEditingId] = useState(null);
-  const [editedUsers, setEditedUsers] = useState("");
+  const [editedName, setEditedName] = useState("");
   const [loading, setLoading] = useState(false);
 
   const fetchUsers = async () => {
@@ -44,13 +44,13 @@ export default function Users() {
 
   const handleEdit = (user) => {
     setEditingId(user._id);
-    setEditedUsers(user.users); // correct field
+    setEditedName(user.name);   // ✅ correct field
   };
 
   const handleSave = async (id) => {
     try {
       await API.put(`/api/users/${id}`, {
-        users: editedUsers, // correct field
+        name: editedName,   // ✅ correct field
       });
 
       setEditingId(null);
@@ -82,7 +82,7 @@ export default function Users() {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell><strong>Users</strong></TableCell>
+                <TableCell><strong>Name</strong></TableCell>
                 <TableCell><strong>Email</strong></TableCell>
                 <TableCell align="right"><strong>Actions</strong></TableCell>
               </TableRow>
@@ -95,13 +95,13 @@ export default function Users() {
                     {editingId === user._id ? (
                       <TextField
                         size="small"
-                        value={editedUsers}
+                        value={editedName}
                         onChange={(e) =>
-                          setEditedUsers(e.target.value)
+                          setEditedName(e.target.value)
                         }
                       />
                     ) : (
-                      user.users
+                      user.name   // ✅ correct field
                     )}
                   </TableCell>
 
@@ -134,6 +134,7 @@ export default function Users() {
                 </TableRow>
               ))}
             </TableBody>
+
           </Table>
         </TableContainer>
       )}

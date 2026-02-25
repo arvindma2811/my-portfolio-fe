@@ -25,7 +25,7 @@ export default function Users() {
   const [editedName, setEditedName] = useState("");
 
   const fetchUsers = async () => {
-    const res = await API.get("/users");
+    const res = await API.get("/api/users");
     setUsers(res.data);
   };
 

@@ -23,10 +23,9 @@ import SaveIcon from "@mui/icons-material/Save";
 export default function Users() {
   const [users, setUsers] = useState([]);
   const [editingId, setEditingId] = useState(null);
-  const [editedUsername, setEditedUsername] = useState("");
+  const [editedUsers, setEditedUsers] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // Fetch Users
   const fetchUsers = async () => {
     try {
       setLoading(true);
@@ -43,17 +42,15 @@ export default function Users() {
     fetchUsers();
   }, []);
 
-  // Start Editing
   const handleEdit = (user) => {
     setEditingId(user._id);
-    setEditedUsername(user.username);
+    setEditedUsers(user.users); // correct field
   };
 
-  // Save Edited User
   const handleSave = async (id) => {
     try {
       await API.put(`/api/users/${id}`, {
-        username: editedUsername,
+        users: editedUsers, // correct field
       });
 
       setEditingId(null);
@@ -63,7 +60,6 @@ export default function Users() {
     }
   };
 
-  // Delete User
   const handleDelete = async (id) => {
     try {
       await API.delete(`/api/users/${id}`);
@@ -86,40 +82,31 @@ export default function Users() {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>
-                  <strong>Username</strong>
-                </TableCell>
-                <TableCell>
-                  <strong>Email</strong>
-                </TableCell>
-                <TableCell align="right">
-                  <strong>Actions</strong>
-                </TableCell>
+                <TableCell><strong>Users</strong></TableCell>
+                <TableCell><strong>Email</strong></TableCell>
+                <TableCell align="right"><strong>Actions</strong></TableCell>
               </TableRow>
             </TableHead>
 
             <TableBody>
               {users.map((user) => (
                 <TableRow key={user._id}>
-                  {/* Username */}
                   <TableCell>
                     {editingId === user._id ? (
                       <TextField
                         size="small"
-                        value={editedUsername}
+                        value={editedUsers}
                         onChange={(e) =>
-                          setEditedUsername(e.target.value)
+                          setEditedUsers(e.target.value)
                         }
                       />
                     ) : (
-                      user.username
+                      user.users
                     )}
                   </TableCell>
 
-                  {/* Email */}
                   <TableCell>{user.email}</TableCell>
 
-                  {/* Actions */}
                   <TableCell align="right">
                     {editingId === user._id ? (
                       <IconButton
